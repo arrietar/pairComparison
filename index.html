@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Comparación de criterios</title>
+    <style>
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"], textarea {
+        display: block;
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+
+      table {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      th, td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+
+      th {
+        background-color: lightgray;
+        font-weight: bold;
+      }
+
+      .botonera {
+        margin-top: 20px;
+      }
+
+      .botonera button {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Comparación de criterios</h1>
+
+    <form id="formulario">
+      <label for="criterios">Criterios:</label>
+      <textarea id="criterios" rows="5" placeholder="Escribe aquí los criterios que quieres comparar"></textarea>
+
+      <button type="button" onclick="crearMatriz()">Crear matriz de comparación</button>
+
+      <div id="matriz"></div>
+
+      <div class="botonera">
+        <button type="button" onclick="calcularValoresRelativos()">Calcular importancias relativas</button>
+        <button type="button" onclick="ingresarImportanciasManuales()">Ingresar importancias manuales</button>
+      </div>
+
+      <div id="resultados"></div>
+    </form>
+
+    <script src="matrix.js"></script>
+  </body>
+</html>
