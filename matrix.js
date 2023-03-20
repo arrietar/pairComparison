@@ -2,7 +2,7 @@ function crearMatriz() {
     // Obtener los criterios ingresados por el usuario
     var criterios = document.getElementById("criterios").value.split("\n");
     
-    // Crear la matriz
+    // Crear la matriz 2x2
     var matrizHtml = "<table><thead><tr><th></th>";
     
     for (var i = 0; i < criterios.length; i++) {
