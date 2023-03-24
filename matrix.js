@@ -13,26 +13,27 @@ function crearMatriz() {
   matrizHtml += "</tr></thead><tbody>";
 
   for (var i = 0; i < criterios.length; i++) {
-    matrizHtml += "<tr><th>" + criterios[i] + "</th>";
+  matrizHtml += "<tr><th>" + criterios[i] + "</th>";
 
-    for (var j = 0; j < criterios.length; j++) {
-      if (i == j) {
-        matrizHtml += "<td>-</td>";
+  for (var j = 0; j < criterios.length; j++) {
+    if (i == j) {
+      matrizHtml += "<td>-</td>";
+    } else {
+      var valorRelativo = valoresRelativos[i] && valoresRelativos[i][j] || "";
+      var valorInverso = valoresRelativos[j] && valoresRelativos[j][i] || "";
+      if (valorRelativo) {
+        matrizHtml += "<td><input type='text' value='" + valorRelativo + "' disabled></td>";
+      } else if (valorInverso) {
+        matrizHtml += "<td><input type='text' value='" + (1/valorInverso).toFixed(2) + "' disabled></td>";
       } else {
-        var valorRelativo = valoresRelativos[i] && valoresRelativos[i][j] || "";
-        var valorInverso = valoresRelativos[j] && valoresRelativos[j][i] || "";
-        if (valorRelativo) {
-          matrizHtml += "<td><input type='text' value='" + valorRelativo + "' disabled></td>";
-        } else if (valorInverso) {
-          matrizHtml += "<td><input type='text' value='" + (1/valorInverso).toFixed(2) + "' disabled></td>";
-        } else {
-          matrizHtml += "<td><input type='text' name='pares-" + i + "-" + j + "'></td>";
-        }
+        matrizHtml += "<td><input type='text' name='pares-" + i + "-" + j + "' oninput='actualizarInversa(" + i + "," + j + ",this.value)'></td>";
       }
     }
-
-    matrizHtml += "</tr>";
   }
+
+  matrizHtml += "</tr>";
+}
+
 
   matrizHtml += "</tbody></table><button type='button' onclick='calcularValoresRelativos()'>Calcular importancias relativas</button>";
 
@@ -87,3 +88,15 @@ function mostrarResultados() {
   resultadosHtml += "</tbody></table>";
   document.getElementById("resultados").innerHTML = resultadosHtml;
   }
+
+  function actualizarInversa(fila, columna, valor) {
+    if (valor != "") {
+      var valorInverso = (1 / valor).toFixed(2);
+      valoresRelativos[columna][fila] = parseFloat(valorInverso);
+      document.getElementsByName("pares-" + columna + "-" + fila)[0].value = valorInverso;
+    } else {
+      valoresRelativos[columna][fila] = null;
+      document.getElementsByName("pares-" + columna + "-" + fila)[0].value = "";
+    }
+  }
+  
